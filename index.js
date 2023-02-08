@@ -9,10 +9,12 @@ const productRoute = require("./routes/products");
 const cartRouter = require("./routes/cart");
 const orderRouter = require("./routes/orders");
 const stripeRouter = require("./routes/stripe");
+const compression = require("compression");
 
 dotenv.config();
 app.use(cors());
 app.use(express.json());
+app.use(compression());
 
 let setCache = function (req, res, next) {
 	const period = 60 * 60 * 12;
@@ -27,7 +29,6 @@ let setCache = function (req, res, next) {
 };
 
 app.use(setCache);
-
 
 //mongoose connection==============================>
 
