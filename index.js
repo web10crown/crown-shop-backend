@@ -14,6 +14,21 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 
+let setCache = function (req, res, next) {
+	const period = 60 * 60 * 12;
+
+	if (req.method == "GET") {
+		res.set("Cache-control", `public, max-age=${period}`);
+	} else {
+		res.set("Cache-control", `no-store`);
+	}
+
+	next();
+};
+
+app.use(setCache);
+
+
 //mongoose connection==============================>
 
 mongoose.set("strictQuery", true);
